@@ -1,4 +1,4 @@
-package com.example.javaapplication.util.Hero;
+package com.example.javaapplication.Hero;
 
 // Тестирование работы программы
 public class Main {

@@ -1,4 +1,4 @@
-package com.example.javaapplication.util.Hero;
+package com.example.javaapplication.Hero;
 
 class Hero {
     private MoveStrategy moveStrategy;

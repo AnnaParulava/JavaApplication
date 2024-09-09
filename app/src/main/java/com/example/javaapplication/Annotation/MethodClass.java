@@ -1,4 +1,4 @@
-package com.example.javaapplication.util.Annotation;
+package com.example.javaapplication.Annotation;
 
 public class MethodClass {
 

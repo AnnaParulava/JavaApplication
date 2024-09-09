@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">JavaApplication</string>
+    <string name="Hero" translatable="false">Hero</string>
+    <string name="Annotation" translatable="false">Annotation</string>
+    <string name="Translator" translatable="false">Annotation</string>
+    <string name="StreamAPI" translatable="false">Annotation</string>
 </resources>

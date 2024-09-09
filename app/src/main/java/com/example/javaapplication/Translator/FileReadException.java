@@ -1,4 +1,4 @@
-package com.example.javaapplication.util.Translator;
+package com.example.javaapplication.Translator;
 
 public class FileReadException extends Exception {
     public FileReadException(String message) {

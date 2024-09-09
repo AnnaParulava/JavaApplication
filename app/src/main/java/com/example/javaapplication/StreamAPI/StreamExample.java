@@ -1,4 +1,4 @@
-package com.example.javaapplication.util.StreamAPI;
+package com.example.javaapplication.StreamAPI;
 
 import java.util.Collection;
 import java.util.List;

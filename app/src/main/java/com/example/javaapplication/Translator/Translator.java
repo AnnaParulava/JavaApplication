@@ -1,4 +1,4 @@
-package com.example.javaapplication.util.Translator;
+package com.example.javaapplication.Translator;
 
 import java.io.BufferedReader;
 import java.io.File;

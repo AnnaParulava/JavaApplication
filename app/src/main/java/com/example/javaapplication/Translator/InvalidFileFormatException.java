@@ -1,4 +1,4 @@
-package com.example.javaapplication.util.Translator;
+package com.example.javaapplication.Translator;
 
 public class InvalidFileFormatException extends Exception {
     public InvalidFileFormatException(String message) {

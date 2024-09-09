@@ -1,4 +1,4 @@
-package com.example.javaapplication.util.Annotation;
+package com.example.javaapplication.Annotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
