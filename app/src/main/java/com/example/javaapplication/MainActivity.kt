@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.example.javaapplication.navigation.BottomNavigationBar
-import com.example.javaapplication.navigation.NavHostContainer
+import ui.navigation.BottomNavigationBar
+import ui.navigation.NavHostContainer
 import ui.theme.JavaApplicationTheme
 
 class MainActivity : ComponentActivity() {

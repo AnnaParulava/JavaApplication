@@ -8,7 +8,6 @@ import java.util.Objects;
 public class MethodInvoker {
 
     public static void invokeAnnotatedMethods(Object obj) throws Exception {
-        // Получаем класс объекта
         Class<?> clazz = obj.getClass();
 
         // Получаем все методы класса
@@ -71,8 +70,12 @@ public class MethodInvoker {
         };
     }
 
-    public static void main(String[] args) throws Exception {
-        MethodClass myClass = new MethodClass();
-        invokeAnnotatedMethods(myClass);
+    public static void main(String[] args) {
+        try {
+            MethodClass myClass = new MethodClass();
+            invokeAnnotatedMethods(myClass);
+        } catch (Exception e) {
+            System.err.println("err: " + e.getMessage());
+        }
     }
 }

@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 public class Translator {
 
-    private static final String FILE_PATH = "/home/anna/AndroidStudioProjects/JavaApplication/app/src/main/java/com/example/javaapplication/Translator/d.txt";
 
     // Словарь для хранения переводов
     private final Map<String, String> dictionary = new HashMap<>();
@@ -87,10 +86,12 @@ public class Translator {
         Translator translator = new Translator();
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Enter file path:");
+        String file = scanner.nextLine();
         // Чтение словаря
         try {
             // Используем относительный путь к файлу в корне проекта
-            translator.loadDictionary(FILE_PATH);
+            translator.loadDictionary(file);
         } catch (InvalidFileFormatException | FileReadException e) {
             System.err.println("Error: " + e.getMessage());
             return;

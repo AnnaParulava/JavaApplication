@@ -1,8 +1,9 @@
 package com.example.javaapplication.Hero;
 
-class FlyStrategy implements MoveStrategy {
+public class FlyStrategy implements MoveStrategy {
     @Override
-    public void move() {
+    public String move() {
         System.out.println("Герой летит.");
+        return "Герой летит";
     }
 }

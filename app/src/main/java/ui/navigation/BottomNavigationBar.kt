@@ -1,4 +1,4 @@
-package com.example.javaapplication.navigation
+package ui.navigation
 
 
 import androidx.compose.material3.Icon

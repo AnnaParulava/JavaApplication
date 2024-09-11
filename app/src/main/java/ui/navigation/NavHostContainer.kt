@@ -1,4 +1,4 @@
-package com.example.javaapplication.navigation
+package ui.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding

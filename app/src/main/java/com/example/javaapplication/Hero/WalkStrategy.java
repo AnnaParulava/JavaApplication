@@ -1,8 +1,10 @@
 package com.example.javaapplication.Hero;
 
-class WalkStrategy implements MoveStrategy {
+public class WalkStrategy implements MoveStrategy {
     @Override
-    public void move() {
+    public String move()
+    {
         System.out.println("Герой идет пешком.");
+        return "Герой идет пешком";
     }
 }
