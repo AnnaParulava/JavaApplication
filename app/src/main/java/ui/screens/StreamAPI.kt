@@ -17,6 +17,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -28,11 +29,19 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.javaapplication.StreamAPI.ui.StreamApiViewModel
+import com.example.javaapplication.streamAPI.ui.StreamApiViewModel
 import ui.shared.MoveButton
 
 @Composable
 fun StreamAPI(viewModel: StreamApiViewModel = viewModel()) {
+    val cardStates = remember { mutableStateMapOf<String, Boolean>() }
+
+    fun initializeCardState(description: String) {
+        if (!cardStates.contains(description)) {
+            cardStates[description] = false
+        }
+    }
+
     var averageInputText by remember { mutableStateOf(TextFieldValue("")) }
     var averageOutputText by remember { mutableStateOf("") }
 
@@ -66,89 +75,71 @@ fun StreamAPI(viewModel: StreamApiViewModel = viewModel()) {
             modifier = Modifier.padding(8.dp)
         )
 
-        MethodCard(
-            description = "Найти среднее значение чисел",
-            onClick = {
-                val numbers =
-                    averageInputText.text.split(",").mapNotNull { it.trim().toIntOrNull() }
-                averageOutputText = viewModel.handleAverage(numbers)
-            },
-            inputPlaceholder = "Введите числа через запятую",
-            outputText = averageOutputText,
-            inputText = averageInputText,
-            onInputChange = { averageInputText = it }
+        val methods = listOf(
+            "Найти среднее значение чисел" to { averageInputText.text.split(",").mapNotNull { it.trim().toIntOrNull() } },
+            "Преобразовать строки в верхний регистр" to { transformInputText.text.split(",").map { it.trim() } },
+            "Найти уникальные квадраты чисел" to { uniqueSquaresInputText.text.split(",").mapNotNull { it.trim().toIntOrNull() } },
+            "Получить последний элемент" to { lastElementInputText.text.split(",").map { it.trim() } },
+            "Сумма чётных чисел" to { evenNumbersInputText.text.split(",").mapNotNull { it.trim().toIntOrNull() }.toIntArray() },
+            "Преобразовать строки в Map" to { stringsToMapInputText.text.split(",").map { it.trim() } }
         )
 
-        MethodCard(
-            description = "Преобразовать строки в верхний регистр",
-            onClick = {
-                val strings = transformInputText.text.split(",").map { it.trim() }
-                transformOutputText = viewModel.handleTransformStrings(strings)
-            },
-            inputPlaceholder = "Введите строки через запятую",
-            outputText = transformOutputText,
-            inputText = transformInputText,
-            onInputChange = { transformInputText = it }
-        )
-
-        MethodCard(
-            description = "Найти уникальные квадраты чисел",
-            onClick = {
-                val numbers =
-                    uniqueSquaresInputText.text.split(",").mapNotNull { it.trim().toIntOrNull() }
-                uniqueSquaresOutputText = viewModel.handleUniqueSquares(numbers)
-            },
-            inputPlaceholder = "Введите числа через запятую",
-            outputText = uniqueSquaresOutputText,
-            inputText = uniqueSquaresInputText,
-            onInputChange = { uniqueSquaresInputText = it }
-        )
-
-        MethodCard(
-            description = "Получить последний элемент",
-            onClick = {
-                val elements = lastElementInputText.text.split(",").map { it.trim() }
-                lastElementOutputText = viewModel.handleGetLastElement(elements)
-            },
-            inputPlaceholder = "Введите элементы через запятую",
-            outputText = lastElementOutputText,
-            inputText = lastElementInputText,
-            onInputChange = { lastElementInputText = it }
-        )
-
-        MethodCard(
-            description = "Сумма чётных чисел",
-            onClick = {
-                val numbers =
-                    evenNumbersInputText.text.split(",").mapNotNull { it.trim().toIntOrNull() }
-                        .toIntArray()
-                evenNumbersOutputText = viewModel.handleSumOfEvenNumbers(numbers)
-            },
-            inputPlaceholder = "Введите числа через запятую",
-            outputText = evenNumbersOutputText,
-            inputText = evenNumbersInputText,
-            onInputChange = { evenNumbersInputText = it }
-        )
-
-        MethodCard(
-            description = "Преобразовать строки в Map",
-            onClick = {
-                val strings = stringsToMapInputText.text.split(",").map { it.trim() }
-                stringsToMapOutputText = viewModel.handleStringsToMap(strings)
-            },
-            inputPlaceholder = "Введите строки через запятую",
-            outputText = stringsToMapOutputText,
-            inputText = stringsToMapInputText,
-            onInputChange = { stringsToMapInputText = it }
-        )
+        methods.forEach { (description, inputParser) ->
+            initializeCardState(description)
+            MethodCard(
+                description = description,
+                isActive = cardStates[description] ?: false,
+                onClick = {
+                    val inputData = inputParser()
+                    when (description) {
+                        "Найти среднее значение чисел" -> averageOutputText = viewModel.handleAverage(inputData as List<Int>)
+                        "Преобразовать строки в верхний регистр" -> transformOutputText = viewModel.handleTransformStrings(inputData as List<String>)
+                        "Найти уникальные квадраты чисел" -> uniqueSquaresOutputText = viewModel.handleUniqueSquares(inputData as List<Int>)
+                        "Получить последний элемент" -> lastElementOutputText = viewModel.handleGetLastElement(inputData as List<String>)
+                        "Сумма чётных чисел" -> evenNumbersOutputText = viewModel.handleSumOfEvenNumbers(inputData as IntArray)
+                        "Преобразовать строки в Map" -> stringsToMapOutputText = viewModel.handleStringsToMap(inputData as List<String>)
+                    }
+                    cardStates[description] = true
+                },
+                inputPlaceholder = "Введите данные через запятую",
+                outputText = when (description) {
+                    "Найти среднее значение чисел" -> averageOutputText
+                    "Преобразовать строки в верхний регистр" -> transformOutputText
+                    "Найти уникальные квадраты чисел" -> uniqueSquaresOutputText
+                    "Получить последний элемент" -> lastElementOutputText
+                    "Сумма чётных чисел" -> evenNumbersOutputText
+                    "Преобразовать строки в Map" -> stringsToMapOutputText
+                    else -> ""
+                },
+                inputText = when (description) {
+                    "Найти среднее значение чисел" -> averageInputText
+                    "Преобразовать строки в верхний регистр" -> transformInputText
+                    "Найти уникальные квадраты чисел" -> uniqueSquaresInputText
+                    "Получить последний элемент" -> lastElementInputText
+                    "Сумма чётных чисел" -> evenNumbersInputText
+                    "Преобразовать строки в Map" -> stringsToMapInputText
+                    else -> TextFieldValue("")
+                },
+                onInputChange = { newValue ->
+                    when (description) {
+                        "Найти среднее значение чисел" -> averageInputText = newValue
+                        "Преобразовать строки в верхний регистр" -> transformInputText = newValue
+                        "Найти уникальные квадраты чисел" -> uniqueSquaresInputText = newValue
+                        "Получить последний элемент" -> lastElementInputText = newValue
+                        "Сумма чётных чисел" -> evenNumbersInputText = newValue
+                        "Преобразовать строки в Map" -> stringsToMapInputText = newValue
+                    }
+                }
+            )
+        }
     }
 }
-
 
 @Composable
 fun MethodCard(
     description: String,
     onClick: () -> Unit,
+    isActive: Boolean = false,
     inputPlaceholder: String,
     outputText: String,
     inputText: TextFieldValue,
@@ -201,7 +192,6 @@ fun MethodCard(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        MoveButton(onClick = onClick, text = "Применить")
+        MoveButton(onClick = onClick, isActive = isActive, text = "Применить")
     }
 }
-

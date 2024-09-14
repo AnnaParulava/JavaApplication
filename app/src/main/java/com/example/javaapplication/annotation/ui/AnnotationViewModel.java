@@ -1,10 +1,10 @@
-package com.example.javaapplication.Annotation.ui;
+package com.example.javaapplication.annotation.ui;
 
-import static com.example.javaapplication.Annotation.MethodInvoker.invokeAnnotatedMethods;
+import static com.example.javaapplication.annotation.MethodInvoker.invokeAnnotatedMethods;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.javaapplication.Annotation.MethodClass;
+import com.example.javaapplication.annotation.MethodClass;
 
 public class AnnotationViewModel extends ViewModel {
 

@@ -14,6 +14,7 @@ import ui.theme.Pink80
 
 @Composable
 fun MoveButton(
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
     isActive: Boolean = true,
     text: String = String()
@@ -28,7 +29,7 @@ fun MoveButton(
             1.dp,
             Color.Transparent
         ) else BorderStroke(1.dp, Color.Gray),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(bottom = 8.dp)
     ) {

@@ -1,4 +1,4 @@
-package com.example.javaapplication.Hero;
+package com.example.javaapplication.hero;
 
 public class WalkStrategy implements MoveStrategy {
     @Override

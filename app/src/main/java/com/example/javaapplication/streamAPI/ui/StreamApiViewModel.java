@@ -1,8 +1,8 @@
-package com.example.javaapplication.StreamAPI.ui;
+package com.example.javaapplication.streamAPI.ui;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.javaapplication.StreamAPI.StreamExample;
+import com.example.javaapplication.streamAPI.StreamExample;
 
 import java.util.List;
 import java.util.stream.Collectors;

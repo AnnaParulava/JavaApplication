@@ -1,4 +1,4 @@
-package com.example.javaapplication.Translator;
+package com.example.javaapplication.translator;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 
 public class Translator {
-
 
     // Словарь для хранения переводов
     private final Map<String, String> dictionary = new HashMap<>();
@@ -48,6 +47,31 @@ public class Translator {
         } catch (IOException e) {
             throw new FileReadException("Error reading file: " + file.getName());
         }
+    }
+
+    // Метод для получения текста из файла словаря
+    public String getTextFromFile(String fileName) throws FileReadException {
+        File file = new File(fileName);
+
+        if (!file.exists()) {
+            throw new FileReadException("File does not exist: " + fileName);
+        }
+
+        if (!file.canRead()) {
+            throw new FileReadException("Cannot read file: " + fileName);
+        }
+
+        StringBuilder contentBuilder = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                contentBuilder.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            throw new FileReadException("Error reading file: " + file.getName());
+        }
+
+        return contentBuilder.toString();
     }
 
     public String translate(String text) {
@@ -88,10 +112,11 @@ public class Translator {
 
         System.out.println("Enter file path:");
         String file = scanner.nextLine();
-        // Чтение словаря
         try {
-            // Используем относительный путь к файлу в корне проекта
             translator.loadDictionary(file);
+            String dictionaryText = translator.getTextFromFile(file); // Получение текста словаря
+            System.out.println("Dictionary Content:");
+            System.out.println(dictionaryText);
         } catch (InvalidFileFormatException | FileReadException e) {
             System.err.println("Error: " + e.getMessage());
             return;
@@ -106,3 +131,4 @@ public class Translator {
         System.out.println("Translated text: " + translated);
     }
 }
+

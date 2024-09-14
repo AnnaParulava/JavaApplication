@@ -1,4 +1,4 @@
-package com.example.javaapplication.Hero.ui;
+package com.example.javaapplication.hero.ui;
 
 public sealed abstract class MoveState permits MoveState.None, MoveState.Walking, MoveState.Horse, MoveState.Flying {
 

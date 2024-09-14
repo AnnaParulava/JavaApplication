@@ -1,11 +1,11 @@
-package com.example.javaapplication.Hero.ui;
+package com.example.javaapplication.hero.ui;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.javaapplication.Hero.FlyStrategy;
-import com.example.javaapplication.Hero.Hero;
-import com.example.javaapplication.Hero.HorseRideStrategy;
-import com.example.javaapplication.Hero.WalkStrategy;
+import com.example.javaapplication.hero.FlyStrategy;
+import com.example.javaapplication.hero.Hero;
+import com.example.javaapplication.hero.HorseRideStrategy;
+import com.example.javaapplication.hero.WalkStrategy;
 
 
 public class HeroViewModel extends ViewModel {

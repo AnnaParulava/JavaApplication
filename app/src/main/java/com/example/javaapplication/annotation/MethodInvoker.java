@@ -1,4 +1,4 @@
-package com.example.javaapplication.Annotation;
+package com.example.javaapplication.annotation;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
