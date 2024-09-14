@@ -1,4 +1,4 @@
-package com.example.javaapplication.Hero.viewModel;
+package com.example.javaapplication.Hero.ui;
 
 import androidx.lifecycle.ViewModel;
 

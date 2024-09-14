@@ -1,15 +1,11 @@
-@file:Suppress("INACCESSIBLE_TYPE")
-
 package ui.screens
 
-import android.util.Log
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,8 +15,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,20 +25,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.javaapplication.Hero.viewModel.HeroViewModel
-import com.example.javaapplication.Hero.viewModel.MoveState
-import com.example.javaapplication.Hero.viewModel.MoveState.None
-import ui.theme.Pink80
+import com.example.javaapplication.Hero.ui.HeroViewModel
+import com.example.javaapplication.Hero.ui.MoveState
+import ui.shared.MoveButton
 
 @Composable
 fun HeroScreen(viewModel: HeroViewModel = viewModel()) {
-    var state by remember { mutableStateOf<MoveState>(MoveState.none() ) }
+    var state by remember { mutableStateOf<MoveState>(MoveState.none()) }
 
     Scaffold(
         content = { padding ->
@@ -77,25 +69,21 @@ fun HeroScreen(viewModel: HeroViewModel = viewModel()) {
                         modifier = Modifier.fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Log.d("AAA", "state ${state}")
                         MoveButton(
                             onClick = { state = MoveState.walking() },
-                            newState = MoveState.walking(),
-                            state = state,
+                            isActive = state == MoveState.walking(),
                             text = "Идти пешком"
                         )
 
                         MoveButton(
                             onClick = { state = MoveState.horse() },
-                            newState = MoveState.horse(),
-                            state = state,
+                            isActive = state == MoveState.horse(),
                             text = "Ехать на лошади"
                         )
 
                         MoveButton(
                             onClick = { state = MoveState.flying() },
-                            newState = MoveState.flying(),
-                            state = state,
+                            isActive = state == MoveState.flying(),
                             text = "Лететь"
                         )
                     }
@@ -104,31 +92,6 @@ fun HeroScreen(viewModel: HeroViewModel = viewModel()) {
         }
     )
 }
-
-@Composable
-fun MoveButton(onClick: () -> Unit, newState: MoveState, state: MoveState, text: String) {
-    var _newState by remember { mutableStateOf<MoveState>(newState) }
-    _newState = newState
-
-    Log.d("AAA", " state $state newState ${newState} $_newState ")
-    OutlinedButton(
-        onClick = { onClick() },
-        colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = if (_newState == state) Pink80 else Color.Transparent,
-            contentColor = if (state == newState) Color.Black else Color.Gray,
-        ),
-        border = if (state == newState) BorderStroke(
-            1.dp,
-            Color.Transparent
-        ) else BorderStroke(1.dp, Color.Gray),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp)
-    ) {
-        Text(text)
-    }
-}
-
 
 @Composable
 fun LoadingDotsAnimation(dotCount: Int = 5) {

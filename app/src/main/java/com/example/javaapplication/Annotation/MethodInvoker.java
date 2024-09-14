@@ -7,8 +7,10 @@ import java.util.Objects;
 
 public class MethodInvoker {
 
-    public static void invokeAnnotatedMethods(Object obj) throws Exception {
+    public static String invokeAnnotatedMethods(Object obj) throws Exception {
+        // Получаем класс объекта
         Class<?> clazz = obj.getClass();
+        StringBuilder builder = new StringBuilder();
 
         // Получаем все методы класса
         Method[] methods = clazz.getDeclaredMethods();
@@ -33,10 +35,17 @@ public class MethodInvoker {
                     // Генерируем параметры для метода в зависимости от его сигнатуры
                     Object[] params = generateParameters(method);
                     method.invoke(obj, params);
+                    builder.append("Вызвать метод ").append(times).append(" раз");
+                    builder.append(System.lineSeparator());
+                    builder.append(method.invoke(obj, params));
+                    builder.append(System.lineSeparator());
                 }
+                builder.append(System.lineSeparator());
             }
         }
+        return builder.toString();
     }
+
 
     // Метод для генерации параметров в зависимости от типа параметров метода
     private static Object[] generateParameters(Method method) {
